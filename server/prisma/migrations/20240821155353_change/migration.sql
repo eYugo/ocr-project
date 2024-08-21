@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "invoices" ALTER COLUMN "dueDate" SET DATA TYPE TEXT,
+ALTER COLUMN "invoiceDate" SET DATA TYPE TEXT;

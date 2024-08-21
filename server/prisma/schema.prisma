@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Invoices {
+  id              BigInt      @id @default(autoincrement())
+  note            String?
+  fileName        String
+  fileKey         String      @unique
+  uploadDate      DateTime    @default(now())
+  userId          BigInt
+  user            Users       @relation(fields: [userId], references: [id])
+  lineItems       LineItems[]
+  vendorName      String?
+  vendorAddress   String?
+  vendorPhone     String?
+  vendorURL       String?
+  receiverName    String?
+  receiverAddress String?
+  receiverPhone   String?
+  invoiceDate     String?
+  invoiceFileID   String?
+  dueDate         String?
+  poNumber        String?
+  totalAmount     String?
+  subtotal        String?
+  tax             String?
+
+  @@map("invoices")
+}
+
+model LineItems {
+  id          Int      @id @default(autoincrement())
+  description String?
+  quantity    String?
+  unitPrice   String?
+  totalPrice  String?
+  invoiceId   BigInt
+  invoice     Invoices @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@map("line_items")
+}
+
+model Users {
+  id       BigInt     @id @default(autoincrement())
+  email    String     @unique
+  password String
+  name     String
+  invoices Invoices[]
+
+  @@map("users")
+}
