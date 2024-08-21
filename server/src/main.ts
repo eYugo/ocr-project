@@ -6,6 +6,7 @@ import { ErrorsInterceptor } from './error/errors.interceptor';
 require('../patch.js');
 
 async function bootstrap() {
+  console.log('Starting NestJS application...');
   const app = await NestFactory.create(AppModule);
   // app.useGlobalFilters(new HttpExceptionFilter());
   // app.useGlobalInterceptors(new ErrorsInterceptor());
