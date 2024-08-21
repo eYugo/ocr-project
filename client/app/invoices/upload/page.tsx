@@ -31,7 +31,6 @@ export default function UploadPage() {
         setMessage("Please log in to upload a file.");
         return;
       }
-      console.log("AccessToken: " + accessToken);
       const response = await createInvoice(file, accessToken);
       setMessage("File uploaded successfully!" + response);
       router.push(`/invoices/${response.id}`);

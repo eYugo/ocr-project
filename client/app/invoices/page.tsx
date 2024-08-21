@@ -11,13 +11,12 @@ export default async function Page() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-    console.log("AccessToken from localStorage:", accessToken);
 
     if (!accessToken) {
       console.log("No access token found, redirecting to login...");
       router.push("/auth/login");
     } else {
-      console.log("Access token found:", accessToken);
+      console.log("Access token found!");
     }
   }, [router]);
 
