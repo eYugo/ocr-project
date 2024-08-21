@@ -11,7 +11,8 @@ async function bootstrap() {
   // app.useGlobalFilters(new HttpExceptionFilter());
   // app.useGlobalInterceptors(new ErrorsInterceptor());
   // Enable CORS
-  const url = process.env.ORIGIN_URL;
+  // const url = process.env.ORIGIN_URL;
+  const url = 'https://ocr-project-front.vercel.app';
 
   app.enableCors({
     origin: url, // Allow requests from this origin
