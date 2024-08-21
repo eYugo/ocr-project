@@ -59,7 +59,7 @@ const Login: React.FC = () => {
           </button>
         </form>
         <div className="flex items-center gap-2">
-          <p>Don't have an account?</p>
+          <p>Don&apos;t have an account?</p>
           <Link href="/auth/register" className="text-blue-500 hover:underline">
             Sign up
           </Link>
