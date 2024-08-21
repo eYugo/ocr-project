@@ -6,7 +6,7 @@ interface InvoiceQueryFieldProps {
   accessToken: string;
 }
 
-const invoiceQueryField = ({ id, accessToken }: InvoiceQueryFieldProps) => {
+const InvoiceQueryField = ({ id, accessToken }: InvoiceQueryFieldProps) => {
   const [query, setQuery] = useState<{ Text: string }>({ Text: "" });
   const [response, setResponse] = useState<any>();
   const handleSearch = async () => {
@@ -52,4 +52,4 @@ const invoiceQueryField = ({ id, accessToken }: InvoiceQueryFieldProps) => {
   );
 };
 
-export default invoiceQueryField;
+export default InvoiceQueryField;
