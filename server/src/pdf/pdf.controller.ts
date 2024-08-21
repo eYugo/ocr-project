@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { Controller, Get, Query, Res, UseGuards } from '@nestjs/common';
 import { Users as PrismaUser } from '@prisma/client';
-import { JwtAuthGuard } from 'src/authentication/auth.guard';
+import { JwtAuthGuard } from '../authentication/auth.guard';
 import { User } from '../users/users.decorator';
 import { InvoicesService } from '../invoices/invoices.service';
 import { PdfService } from './pdf.service';

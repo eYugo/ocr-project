@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Users as PrismaUser } from '@prisma/client';
-import { JwtAuthGuard } from 'src/authentication/auth.guard';
+import { JwtAuthGuard } from '../authentication/auth.guard';
 import { S3Service } from '../s3/s3.service';
 import { TextractService } from '../textract/textract.service';
 import { User } from '../users/users.decorator';

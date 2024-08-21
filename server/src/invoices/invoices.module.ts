@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { S3Service } from 'src/s3/s3.service';
-import { TextractService } from 'src/textract/textract.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { S3Service } from '../s3/s3.service';
+import { TextractService } from '../textract/textract.service';
 import { LineItemsRepository } from '../line-items/repository/line-items.repository';
 import { InvoicesRepository } from './repository/invoices.repository';
 import { InvoicesController } from './invoices.controller';
