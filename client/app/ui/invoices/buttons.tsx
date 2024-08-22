@@ -22,6 +22,7 @@ import {
 import { generateInvoicePdf } from "../../services/api-pdf";
 import { deleteInvoice } from "../../services/api-invoices";
 import DeleteInvoiceModal from "./deleteInvoiceModal";
+import { useNotification } from "../notificationContext";
 
 export function UploadInvoiceButton() {
   return (
@@ -68,14 +69,29 @@ export function DeleteInvoiceButton({
   const [loading, setLoading] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { showNotification } = useNotification();
+
+  const handleInfo = () => {
+    showNotification("Invoice was deleted!", "info");
+  };
+
+  const handleError = (error: any) => {
+    showNotification(`Something went wrong ${error}`, "error");
+  };
 
   const handleDelete = async () => {
     setLoading(true);
-    await deleteInvoice(id, accessToken);
-    console.log(`Deleting invoice with id: ${id}`);
-    router.push("/invoices/list");
-    setLoading(false);
-    return;
+    try {
+      await deleteInvoice(id, accessToken);
+      console.log(`Deleting invoice with id: ${id}`);
+      router.push("/invoices/list");
+      handleInfo();
+    } catch (error) {
+      handleError(error);
+      console.error("Error deleting invoice:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

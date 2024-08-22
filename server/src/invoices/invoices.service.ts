@@ -39,6 +39,8 @@ export class InvoicesService {
     if (invoice.userId !== userId) {
       throw new Error('Unauthorized: Invoice does not belong to the user');
     }
+
+    // Delete the file from S3
     await this.s3Service.deleteFile(invoice.fileKey);
     return await this.invoicesRepository.deleteInvoice(id);
   }

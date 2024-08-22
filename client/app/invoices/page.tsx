@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, Suspense } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { lusitana } from "../ui/fonts";
 
@@ -24,11 +24,7 @@ export default async function Page() {
         Dashboard
       </h1>
       <p>Under construction...</p>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {/* <Suspense fallback={<CardSkeleton />}>
-          <CardWrapper />
-        </Suspense> */}
-      </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
     </main>
   );
 }

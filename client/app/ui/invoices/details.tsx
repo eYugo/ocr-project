@@ -15,6 +15,7 @@ import {
 import InvoiceField from "./invoiceField";
 import InvoiceImageModal from "./invoiceImageModal";
 import { InvoiceDetailsSkeleton } from "../skeletons";
+import { useNotification } from "../notificationContext";
 
 export default function InvoiceDetails({}: {}) {
   const router = useRouter();
@@ -28,6 +29,7 @@ export default function InvoiceDetails({}: {}) {
   const [isPdf, setIsPdf] = useState<boolean>(false);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { showNotification } = useNotification();
 
   useEffect(() => {
     const fetchInvoice = async () => {
@@ -73,10 +75,25 @@ export default function InvoiceDetails({}: {}) {
     setIsQuerying(false);
   };
 
+  const handleInfo = () => {
+    showNotification("Invoice was updated!", "info");
+  };
+
+  const handleError = (error: any) => {
+    showNotification(`Something went wrong ${error}`, "error");
+  };
+
   const handleSave = async () => {
-    await updateInvoice(fieldData, accessToken);
-    setInvoice(fieldData);
-    setIsEditing(false);
+    try {
+      await updateInvoice(fieldData, accessToken);
+      handleInfo();
+    } catch (error) {
+      console.error("Error saving invoice:", error);
+      handleError(error);
+    } finally {
+      setInvoice(fieldData);
+      setIsEditing(false);
+    }
   };
 
   const handleInputChange = (e: any) => {

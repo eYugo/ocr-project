@@ -5,15 +5,21 @@ import { useRouter } from "next/navigation";
 import { ArrowUpIcon } from "@heroicons/react/24/outline";
 import { lusitana } from "@/app/ui/fonts";
 import { createInvoice } from "@/app/services/api-invoices";
-import { Spinner } from "@nextui-org/react";
 import LoadingSpinner from "@/app/ui/loadingSpinner";
+import { useNotification } from "@/app/ui/notificationContext";
 
 export default function UploadPage() {
+  const { showNotification } = useNotification();
+
   const router = useRouter();
 
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState(false);
+
+  const handleInfo = () => {
+    showNotification("Invoice was uploaded!", "info");
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -36,8 +42,8 @@ export default function UploadPage() {
       }
       setLoading(true);
       const response = await createInvoice(file, accessToken);
-
       router.push(`/invoices/${response.id}`);
+      handleInfo();
     } catch (error) {
       if (error instanceof Error) {
         setMessage("Error uploading file: " + error.message);

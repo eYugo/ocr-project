@@ -75,7 +75,7 @@ const invoiceFormField = ({
         <label className="text-sm text-gray-500 flex-shrink-0">Due Date:</label>
         <input
           type="text"
-          name="invoiceDate"
+          name="dueDate"
           value={fieldData.dueDate || ""}
           onChange={handleInputChange}
           className="text-sm text-gray-500 ml-2 border border-gray-300 rounded-md flex-grow"

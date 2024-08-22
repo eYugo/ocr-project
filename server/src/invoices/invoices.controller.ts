@@ -44,7 +44,6 @@ export class InvoicesController {
     if (!file) {
       throw new BadRequestException('File is required');
     }
-
     // Upload file to S3
     let fileKey: string;
     try {
@@ -59,7 +58,9 @@ export class InvoicesController {
     let analysisResult: any;
     try {
       analysisResult = await this.textractService.analyzeInvoice(fileKey);
+      console.log('Analyzed file:', analysisResult);
     } catch (error) {
+      console.error('Error analyzing file:', error);
       throw new BadRequestException('Error analyzing file: ' + error.message);
     }
 
