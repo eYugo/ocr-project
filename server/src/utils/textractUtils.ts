@@ -1,3 +1,6 @@
+// Utility functions for working with Textract responses
+
+// Organize the response from AnalyzeExpense
 export const organizeExpenseResponse = (
   response: AWS.Textract.AnalyzeExpenseResponse,
 ): any => {
@@ -21,7 +24,7 @@ export const organizeExpenseResponse = (
   };
 
   expenseDocuments.forEach((doc) => {
-    // Extract line items
+    // extract line items
     doc.LineItemGroups?.forEach((group) => {
       group.LineItems?.forEach((item) => {
         const lineItem = {
@@ -50,7 +53,7 @@ export const organizeExpenseResponse = (
       });
     });
 
-    // Extract summary fields
+    // extract summary fields
     doc.SummaryFields?.forEach((field) => {
       switch (field.Type?.Text) {
         case 'VENDOR_NAME':
@@ -102,10 +105,11 @@ export const organizeExpenseResponse = (
   return organizedData;
 };
 
+// Extract the query results from an AnalyzeDocument response
 export function extractQueryResults(
   response: AWS.Textract.AnalyzeDocumentResponse,
 ): any {
-  // Find the QUERY_RESULT block
+  // find the QUERY_RESULT block
   const queryResultBlock = response.Blocks.find(
     (block) => block.BlockType === 'QUERY_RESULT' && block.Text,
   );
@@ -114,7 +118,7 @@ export function extractQueryResults(
     return { Answer: 'No answer for this query' };
   }
 
-  // Extract the query text from the QUERY block
+  // extract the query text from the QUERY block
   const queryBlock = response.Blocks.find(
     (block) => block.BlockType === 'QUERY' && block.Query,
   );

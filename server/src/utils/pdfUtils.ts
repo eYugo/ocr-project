@@ -1,5 +1,8 @@
+// Utility functions to embed files and format PDFs.
+
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
+// Function to embed a file into a PDF document
 export async function embedFile(
   pdfDoc: PDFDocument,
   fileBytes: Buffer,
@@ -36,14 +39,15 @@ export async function embedFile(
   }
 }
 
+// Function to format an invoice PDF
 export async function formatInvoicePdf(
   pdfDoc: PDFDocument,
   invoice: any,
 ): Promise<void> {
-  const pageSize: [number, number] = [600, 800]; // Define a consistent page size as a tuple
+  const pageSize: [number, number] = [600, 800]; // define a consistent page size as a tuple
   let textPage = pdfDoc.addPage(pageSize);
-  let currentY = 750; // Start position for the first line of text
-  const lineHeight = 20; // Height of each line of text
+  let currentY = 750; // start position for the first line of text
+  const lineHeight = 20; // height of each line of text
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
   textPage.drawText(`Invoice Details`, {
@@ -53,7 +57,7 @@ export async function formatInvoicePdf(
     color: rgb(0, 0, 0),
   });
 
-  currentY -= lineHeight * 2; // Move down for the next section
+  currentY -= lineHeight * 2; // move down for the next section
 
   const details = [
     `Receiver: ${invoice.receiverName?.replace(/\n/g, ' | ') || 'N/A'}`,
@@ -78,11 +82,11 @@ export async function formatInvoicePdf(
       size: 12,
       color: rgb(0, 0, 0),
     });
-    currentY -= lineHeight; // Move down for the next line
+    currentY -= lineHeight; // move down for the next line
   });
 
-  // Add line itemss
-  currentY -= lineHeight * 2; // Add some space before line items
+  // add line itemss
+  currentY -= lineHeight * 2; // add some space before line items
 
   textPage.drawText(`Line Items:`, {
     x: 50,
@@ -94,7 +98,7 @@ export async function formatInvoicePdf(
 
   currentY -= lineHeight * 2;
 
-  // Table headers
+  // table headers
   const headers = ['Description', 'Quantity', 'Unit Price', 'Total Price'];
   headers.forEach((header, index) => {
     if (index === 0) {
@@ -116,7 +120,7 @@ export async function formatInvoicePdf(
 
   currentY -= lineHeight * 2;
 
-  // Table rows
+  // table rows
   invoice.lineItems?.forEach((item: any) => {
     const descriptionHeight = measureTextHeight(
       item.description,
@@ -179,11 +183,11 @@ export async function formatInvoicePdf(
       font: font,
     });
 
-    currentY -= maxHeight + lineHeight; // Move down for the next row
+    currentY -= maxHeight + lineHeight; // move down for the next row
   });
 }
 
-// Function to measure text height
+// function to measure text height
 function measureTextHeight(
   text: string,
   size: number,

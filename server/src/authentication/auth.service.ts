@@ -15,9 +15,11 @@ export class AuthService {
     private readonly usersService: UsersService,
   ) {}
 
+  // Login
   async login(loginDto: LoginDto): Promise<any> {
     const { email, password } = loginDto;
 
+    // find user by email
     const users = await this.prismaService.users.findUnique({
       where: { email },
     });
@@ -26,6 +28,7 @@ export class AuthService {
       throw new NotFoundException('user not found');
     }
 
+    // compare password
     const validatePassword = await bcrypt.compare(password, users.password);
 
     if (!validatePassword) {
@@ -37,12 +40,14 @@ export class AuthService {
     };
   }
 
+  // Register
   async register(createDto: RegisterUsersDto): Promise<any> {
     const createUser = new Users();
     createUser.name = createDto.name;
     createUser.email = createDto.email;
     createUser.password = await bcrypt.hash(createDto.password, 10);
 
+    // create user
     const user = await this.usersService.createUser(createUser);
 
     return {

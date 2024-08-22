@@ -7,12 +7,14 @@ export class InvoicesRepository {
 
   constructor(private prisma: PrismaService) {}
 
+  // Get all invoices for a user
   async getInvoices(userId: bigint) {
     return await this.prisma.invoices.findMany({
       where: { userId: userId },
     });
   }
 
+  // Create an invoice
   async createInvoice(data: any) {
     this.logger.log(`Creating invoice with data: ${JSON.stringify(data)}`);
 
@@ -36,12 +38,14 @@ export class InvoicesRepository {
     }
   }
 
+  // Delete an invoice
   async deleteInvoice(id: number) {
     return await this.prisma.invoices.delete({
       where: { id: BigInt(id) },
     });
   }
 
+  // Get an invoice by id
   async getInvoiceById(id: number) {
     return await this.prisma.invoices.findUnique({
       where: { id: BigInt(id) },
@@ -49,6 +53,7 @@ export class InvoicesRepository {
     });
   }
 
+  // Update an invoice
   async updateInvoice(id: number, data: any) {
     return await this.prisma.invoices.update({
       where: { id: BigInt(id) },

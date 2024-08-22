@@ -9,10 +9,12 @@ export class LineItemsRepository {
     });
   }
 
+  // Get all line items for a user
   async getLineItemsByUser(): Promise<LineItems[]> {
     return prisma.lineItems.findMany();
   }
 
+  // Get a line item by id
   async updateLineItem(
     id: number,
     data: Partial<LineItems>,

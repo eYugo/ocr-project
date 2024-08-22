@@ -18,6 +18,7 @@ export class TextractService {
     });
   }
 
+  // Analyze an invoice
   async analyzeInvoice(fileKey: string): Promise<any> {
     const params: AWS.Textract.AnalyzeExpenseRequest = {
       Document: {
@@ -32,6 +33,7 @@ export class TextractService {
     return organizeExpenseResponse(response);
   }
 
+  // Query an invoice
   async queryInvoice(fileKey: string, query: AWS.Textract.Query): Promise<any> {
     const params: AWS.Textract.AnalyzeDocumentRequest = {
       Document: {

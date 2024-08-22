@@ -28,12 +28,14 @@ export class InvoicesController {
     private readonly textractService: TextractService,
   ) {}
 
+  // Get all invoices for a user
   @Get('all')
   @UseGuards(JwtAuthGuard)
   async getInvoices(@User() user: PrismaUser) {
     return await this.invoicesService.getInvoices(user.id);
   }
 
+  // Upload the image file to S3, analyze it with Textract, and create an invoice
   @Post()
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
@@ -44,7 +46,7 @@ export class InvoicesController {
     if (!file) {
       throw new BadRequestException('File is required');
     }
-    // Upload file to S3
+    // upload file to S3
     let fileKey: string;
     try {
       fileKey = await this.s3Service.uploadFile(file);
@@ -54,7 +56,7 @@ export class InvoicesController {
       );
     }
 
-    // Analyze the uploaded file
+    // analyze the uploaded file
     let analysisResult: any;
     try {
       analysisResult = await this.textractService.analyzeInvoice(fileKey);
@@ -64,6 +66,7 @@ export class InvoicesController {
       throw new BadRequestException('Error analyzing file: ' + error.message);
     }
 
+    // create the invoice
     return await this.invoicesService.createInvoice({
       fileName: file.originalname,
       fileKey: fileKey,
@@ -72,6 +75,7 @@ export class InvoicesController {
     });
   }
 
+  // Delete an invoice by id
   @Delete()
   @UseGuards(JwtAuthGuard)
   async deleteInvoice(@Query('id') id: string, @User() user: PrismaUser) {
@@ -79,6 +83,7 @@ export class InvoicesController {
     return this.invoicesService.deleteInvoice(parsedId, user.id);
   }
 
+  // Analyze an invoice with Textract
   @Get('analyze')
   async analyzeInvoice(@Query('invoice') invoice: string) {
     if (!invoice) {
@@ -93,6 +98,7 @@ export class InvoicesController {
     }
   }
 
+  // Get a pre-signed URL for an image file
   @Get('image-url')
   async getImage(@Query('fileKey') fileKey: string) {
     if (!fileKey) {
@@ -121,11 +127,15 @@ export class InvoicesController {
     if (!query) {
       throw new BadRequestException('Query parameter is required');
     }
+
+    // get the invoice by ID
     const parsedId = Number(id);
     const invoice = await this.invoicesService.getInvoiceById(
       parsedId,
       user.id,
     );
+
+    // query the invoice
     try {
       const result = await this.textractService.queryInvoice(
         invoice.fileKey,
@@ -137,7 +147,7 @@ export class InvoicesController {
     }
   }
 
-  // Get invoice by ID for a user
+  // Get invoice by id for a user
   @Get()
   @UseGuards(JwtAuthGuard)
   async getInvoice(@Query('id') id: string, @User() user: PrismaUser) {

@@ -15,6 +15,7 @@ export class S3Service {
     });
   }
 
+  // Upload a file to S3
   async uploadFile(file: Express.Multer.File): Promise<string> {
     const fileKey = `${uuidv4()}-${file.originalname}`;
     const params = {
@@ -28,6 +29,7 @@ export class S3Service {
     return fileKey;
   }
 
+  // Get a pre-signed URL for a file in S3
   async getPreSignedUrl(fileKey: string): Promise<string> {
     const params = {
       Bucket: process.env.AWS_S3_BUCKET_NAME,
@@ -38,6 +40,7 @@ export class S3Service {
     return await this.s3.getSignedUrl('getObject', params);
   }
 
+  // Delete a file from S3
   async deleteFile(fileKey: string): Promise<AWS.S3.DeleteObjectOutput> {
     const params = {
       Bucket: process.env.AWS_S3_BUCKET_NAME,

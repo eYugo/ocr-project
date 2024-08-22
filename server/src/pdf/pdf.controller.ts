@@ -14,6 +14,7 @@ export class PdfController {
     private readonly invoicesService: InvoicesService,
   ) {}
 
+  // Generate a PDF invoice
   @Get('invoice')
   async generateInvoicePdf(
     @Query('id') id: string,
@@ -22,16 +23,16 @@ export class PdfController {
   ) {
     const parsedId = Number(id);
 
-    // Get Invoice
+    // get Invoice
     const invoice = await this.invoicesService.getInvoiceAndUrlById(
       parsedId,
       user.id,
     );
 
-    // Generate PDF
+    // generate PDF
     const pdfBuffer = await this.pdfService.generateInvoicePdf(invoice);
 
-    // Send the PDF as a response
+    // send the PDF as a response
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader(
       'Content-Disposition',

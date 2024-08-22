@@ -6,26 +6,27 @@ import { formatInvoicePdf, embedFile } from '../utils/pdfUtils';
 
 @Injectable()
 export class PdfService {
+  // Generate a PDF from an invoice
   async generateInvoicePdf(invoice: any): Promise<Buffer> {
     const logger = new Logger('PdfService');
 
     try {
-      // Fetch the file
+      // fetch the file
       const fileResponse = await axios.get(invoice.imageUrl, {
         responseType: 'arraybuffer',
       });
       const fileBytes = fileResponse.data;
 
-      // Create a new PDF document
+      // create a new PDF document
       const pdfDoc = await PDFDocument.create();
       const pageSize: [number, number] = [600, 800]; // Define a consistent page size as a tuple
 
-      // Parse the URL to get the file extension
+      // parse the URL to get the file extension
       const parsedUrl = url.parse(invoice.imageUrl);
       const pathname = parsedUrl.pathname || '';
       const extension = pathname.split('.').pop()?.toLowerCase();
 
-      // Embed the file into the PDF document
+      // embed the file into the PDF document
       await embedFile(
         pdfDoc,
         fileBytes,
@@ -35,10 +36,10 @@ export class PdfService {
         invoice.imageUrl,
       );
 
-      // Format the invoice PDF
+      // format the invoice PDF
       await formatInvoicePdf(pdfDoc, invoice);
 
-      // Serialize the PDF document to bytes
+      // serialize the PDF document to bytes
       const pdfBytes = await pdfDoc.save();
 
       return Buffer.from(pdfBytes);
