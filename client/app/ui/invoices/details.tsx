@@ -14,6 +14,7 @@ import {
 } from "./buttons";
 import InvoiceField from "./invoiceField";
 import InvoiceImageModal from "./invoiceImageModal";
+import { InvoiceDetailsSkeleton } from "../skeletons";
 
 export default function InvoiceDetails({}: {}) {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function InvoiceDetails({}: {}) {
       setInvoice(invoiceData);
       setFieldData(invoiceData);
 
-      // Extract file extension before query parameters
+      // Extract file extension before query parameters and check if the invoice is a PDF
       const url = new URL(invoiceData.imageUrl);
       const pathname = url.pathname;
       const extension = pathname.split(".").pop();
@@ -50,6 +51,10 @@ export default function InvoiceDetails({}: {}) {
     };
     fetchInvoice();
   }, [router]);
+
+  if (!invoice) {
+    return <InvoiceDetailsSkeleton />;
+  }
 
   const handleEdit = () => {
     setIsEditing(true);

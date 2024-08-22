@@ -7,21 +7,25 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { lusitana } from "@/app/ui/fonts";
 import AppLogo from "@/app/ui/app-logo";
+import LoadingSpinner from "@/app/ui/loadingSpinner";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const data = await login(email, password);
       localStorage.setItem("accessToken", data.result.token);
-      //   localStorage.setItem('refreshToken', data.refreshToken);
       router.push("/invoices");
     } catch (error) {
       console.error("Login failed:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,7 +59,15 @@ const Login: React.FC = () => {
             type="submit"
             className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
           >
-            <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
+            {loading ? (
+              <>
+                <span>Logging in...</span> <LoadingSpinner />
+              </>
+            ) : (
+              <>
+                <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
+              </>
+            )}
           </button>
         </form>
         <div className="flex items-center gap-2">

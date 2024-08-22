@@ -3,8 +3,6 @@
 import { useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { lusitana } from "../ui/fonts";
-import { CardSkeleton } from "../ui/skeletons";
-import { CardWrapper } from "../ui/cards";
 
 export default async function Page() {
   const router = useRouter();

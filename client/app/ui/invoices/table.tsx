@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 // import { formatDateToLocal, formatCurrency } from "@/app/lib/utils";
 import { getInvoices } from "../../services/api-invoices";
+import { InvoicesTableSkeleton } from "../skeletons";
 
 export default function InvoicesTable({}: {}) {
   const router = useRouter();
@@ -25,9 +26,9 @@ export default function InvoicesTable({}: {}) {
     fetchInvoices();
   }, [router]);
 
-  // if (!invoices) {
-  //   return <div>Loading...</div>;
-  // }
+  if (!invoices) {
+    return <InvoicesTableSkeleton />;
+  }
 
   return (
     <div className="mt-6 flow-root">

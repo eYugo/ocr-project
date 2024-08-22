@@ -8,13 +8,13 @@ interface ModalProps {
   children: ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({
+const SignoutModal = ({
   isOpen,
   onClose,
   onConfirm,
   title,
   children,
-}) => {
+}: ModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -41,4 +41,4 @@ const Modal: React.FC<ModalProps> = ({
   );
 };
 
-export default Modal;
+export default SignoutModal;

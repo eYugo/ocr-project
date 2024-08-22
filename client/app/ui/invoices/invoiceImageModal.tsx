@@ -19,7 +19,7 @@ const InvoiceImageModal = ({
       <img
         src={imageUrl}
         alt="Invoice Image"
-        className="mt-4 md:mt-0 w-96 h-96 object-contain cursor-pointer"
+        className="mt-4 md:mt-0 w-96 h-96 object-contain cursor-pointer rounded-lg shadow-md border-gray-300"
         onClick={onOpen}
       />
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -28,7 +28,7 @@ const InvoiceImageModal = ({
             <img
               src={imageUrl}
               alt="Invoice Image"
-              className="max-w-full max-h-full rounded-lg shadow-lg object-contain"
+              className="max-w-full max-h-full rounded-lg shadow-md  border-gray-300 object-contain"
             />
           </div>
         </ModalContent>

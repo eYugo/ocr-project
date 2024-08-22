@@ -5,12 +5,15 @@ import { useRouter } from "next/navigation";
 import { ArrowUpIcon } from "@heroicons/react/24/outline";
 import { lusitana } from "@/app/ui/fonts";
 import { createInvoice } from "@/app/services/api-invoices";
+import { Spinner } from "@nextui-org/react";
+import LoadingSpinner from "@/app/ui/loadingSpinner";
 
 export default function UploadPage() {
   const router = useRouter();
 
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -31,8 +34,9 @@ export default function UploadPage() {
         setMessage("Please log in to upload a file.");
         return;
       }
+      setLoading(true);
       const response = await createInvoice(file, accessToken);
-      setMessage("File uploaded successfully!" + response);
+
       router.push(`/invoices/${response.id}`);
     } catch (error) {
       if (error instanceof Error) {
@@ -40,6 +44,8 @@ export default function UploadPage() {
       } else {
         setMessage("An unknown error occurred.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,6 +54,7 @@ export default function UploadPage() {
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
         Upload
       </h1>
+
       <div className="flex flex-col items-center justify-center mt-10">
         <div className="w-full max-w-lg">
           <form
@@ -72,9 +79,19 @@ export default function UploadPage() {
             <div className="flex items-center justify-between">
               <button
                 type="submit"
-                className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
+                className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
               >
-                <span>Upload</span> <ArrowUpIcon className="w-5 md:w-6" />
+                {loading ? (
+                  <>
+                    <span>Uploading...</span>
+                    <LoadingSpinner />
+                  </>
+                ) : (
+                  <>
+                    <span>Upload</span>
+                    <ArrowUpIcon className="w-5 md:w-6" />
+                  </>
+                )}
               </button>
             </div>
           </form>

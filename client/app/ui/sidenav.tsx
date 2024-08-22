@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import NavLinks from '@/app/ui/nav-links';
-import AppLogo from '@/app/ui/app-logo';
-import { PowerIcon } from '@heroicons/react/24/outline';
-import Modal from '@/app/ui/modal';
-import { useLogout } from '@/app/auth/logout/logout';
+import { useState } from "react";
+import Link from "next/link";
+import NavLinks from "@/app/ui/nav-links";
+import AppLogo from "@/app/ui/app-logo";
+import { PowerIcon } from "@heroicons/react/24/outline";
+import SignoutModal from "@/app/ui/signoutModal";
+import { useLogout } from "@/app/auth/logout/logout";
 
 export default function SideNav() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,14 +46,14 @@ export default function SideNav() {
           <div className="hidden md:block">Sign Out</div>
         </button>
       </div>
-      <Modal
+      <SignoutModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmSignOut}
         title="Confirm Sign Out"
       >
         Are you sure you want to sign out?
-      </Modal>
+      </SignoutModal>
     </div>
   );
 }

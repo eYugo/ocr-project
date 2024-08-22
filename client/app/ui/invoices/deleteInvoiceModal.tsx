@@ -1,16 +1,19 @@
 import React from "react";
 import { Modal, useDisclosure } from "@nextui-org/react";
+import LoadingSpinner from "@/app/ui/loadingSpinner";
 
 interface DeleteInvoiceModalProps {
   isOpen: boolean;
   onClose: () => void;
   handleDelete: () => void;
+  loading: boolean;
 }
 
 function DeleteInvoiceModal({
   isOpen,
   onClose,
   handleDelete,
+  loading,
 }: DeleteInvoiceModalProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -36,10 +39,17 @@ function DeleteInvoiceModal({
 
           <footer className="flex justify-end">
             <button
-              className="bg-red-500 text-white px-4 py-2 rounded mr-2 hover:bg-red-600"
+              className="gap-5 bg-red-500 text-white px-4 py-2 rounded mr-2 hover:bg-red-600"
               onClick={handleDelete}
             >
-              Confirm
+              {loading ? (
+                <>
+                  Deleting...
+                  <LoadingSpinner />
+                </>
+              ) : (
+                <>Delete</>
+              )}
             </button>
             <button
               className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"

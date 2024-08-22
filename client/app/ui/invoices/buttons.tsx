@@ -65,13 +65,16 @@ export function DeleteInvoiceButton({
   accessToken: string;
 }) {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleDelete = async () => {
+    setLoading(true);
     await deleteInvoice(id, accessToken);
     console.log(`Deleting invoice with id: ${id}`);
     router.push("/invoices/list");
+    setLoading(false);
     return;
   };
 
@@ -89,6 +92,7 @@ export function DeleteInvoiceButton({
         isOpen={isOpen}
         onClose={onClose}
         handleDelete={handleDelete}
+        loading={loading}
       />
     </>
   );
