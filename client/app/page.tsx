@@ -15,17 +15,20 @@ export default function Page() {
           <p
             className={`${lusitana.className} text-xl text-gray-800 md:text-3xl md:leading-normal`}
           >
+            {/* Welcome message */}
             <strong>Welcome to OCR App.</strong>
             <br></br>
             This is a simple app that allows you to upload invoice images and
             extract text from them.
           </p>
+          {/* Login link */}
           <Link
             href="/auth/login"
             className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
           >
             <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
           </Link>
+          {/* Register link */}
           <div className="flex items-center gap-2">
             <p>Don&apos;t have an account yet?</p>
             <Link

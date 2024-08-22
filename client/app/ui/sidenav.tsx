@@ -1,3 +1,5 @@
+// Sidebar navigation component
+
 "use client";
 
 import { useState } from "react";

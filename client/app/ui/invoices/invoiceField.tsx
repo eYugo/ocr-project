@@ -1,3 +1,5 @@
+// Invoice Field component
+
 import React from "react";
 import InvoiceFormField from "./invoiceFormField";
 import InvoiceTextField from "./invoiceTextField";
@@ -25,6 +27,7 @@ const InvoiceField = ({
 }: InvoiceFormProps) => {
   return (
     <>
+      {/* Conditional rendering to check if the user clicked the edit or query button */}
       {isEditing ? (
         <>
           <InvoiceFormField

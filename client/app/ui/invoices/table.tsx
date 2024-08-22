@@ -1,9 +1,10 @@
+// Table component to display invoices as list
+
 "use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// import { formatDateToLocal, formatCurrency } from "@/app/lib/utils";
 import { getInvoices } from "../../services/api-invoices";
 import { InvoicesTableSkeleton } from "../skeletons";
 

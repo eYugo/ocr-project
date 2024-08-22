@@ -1,3 +1,5 @@
+// Loading spinner component
+
 const LoadingSpinner = () => {
   return (
     <div

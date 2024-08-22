@@ -1,3 +1,5 @@
+// Invoices list page
+
 import Table from "@/app/ui/invoices/table";
 import { UploadInvoiceButton } from "@/app/ui/invoices/buttons";
 import { lusitana } from "@/app/ui/fonts";

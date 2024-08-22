@@ -1,23 +1,13 @@
-'use client';
-import { useRouter } from 'next/navigation';
-// import { logout as apiLogout } from '../../services/api-auth';
+"use client";
+import { useRouter } from "next/navigation";
 
 export const useLogout = () => {
   const router = useRouter();
 
+  // Remove access token from local storage
   const logout = async () => {
-    // try {
-    //   await apiLogout();
-    // } catch (error) {
-    //   console.error('Logout failed:', error);
-    // } finally {
-    //   localStorage.removeItem('accessToken');
-    //   localStorage.removeItem('refreshToken');
-    //   router.push('/login');
-    // }
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        router.push('/');
+    localStorage.removeItem("accessToken");
+    router.push("/");
   };
 
   return logout;

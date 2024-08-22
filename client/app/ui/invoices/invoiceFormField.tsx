@@ -1,3 +1,5 @@
+// Form fields for invoice editing
+
 interface InvoiceFormFieldProps {
   fieldData: any;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

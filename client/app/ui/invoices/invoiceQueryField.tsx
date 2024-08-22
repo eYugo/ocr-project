@@ -1,3 +1,5 @@
+// Query field component for querying an invoice
+
 import React, { useState } from "react";
 import { queryInvoice } from "../../services/api-invoices";
 

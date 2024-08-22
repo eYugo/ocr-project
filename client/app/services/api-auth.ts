@@ -20,6 +20,7 @@ interface RegisterResponse {
   };
 }
 
+// Login function API
 export const login = async (
   email: string,
   password: string
@@ -31,6 +32,7 @@ export const login = async (
   return response.data;
 };
 
+// Register function API
 export const register = async (
   name: string,
   email: string,

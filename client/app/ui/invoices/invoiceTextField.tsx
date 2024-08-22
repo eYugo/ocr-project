@@ -1,3 +1,4 @@
+// Text fields about the details of the invoice
 interface InvoiceTextFieldProps {
   fieldData: any;
 }

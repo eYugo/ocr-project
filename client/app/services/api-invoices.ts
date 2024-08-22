@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-// Create a new invoice
+// Create a new invoice API
 export const createInvoice = async (
   file: File,
   token: string
@@ -26,7 +26,7 @@ export const createInvoice = async (
   }
 };
 
-// Get invoices
+// Get invoices API
 export const getInvoices = async (token: string): Promise<any[]> => {
   console.log("Getting invoices");
   const response = await api.get("/invoices/all", {
@@ -37,7 +37,7 @@ export const getInvoices = async (token: string): Promise<any[]> => {
   return response.data;
 };
 
-// Get invoice by ID
+// Get invoice by ID API
 export const getInvoiceById = async (
   id: string,
   token: string
@@ -50,7 +50,7 @@ export const getInvoiceById = async (
   return response.data;
 };
 
-// Update an existing invoice
+// Update an existing invoice API
 export const updateInvoice = async (
   invoice: any,
   token: string
@@ -64,7 +64,7 @@ export const updateInvoice = async (
   return response.data;
 };
 
-// Delete an invoice by ID
+// Delete an invoice by ID API
 export const deleteInvoice = async (
   id: string,
   token: string

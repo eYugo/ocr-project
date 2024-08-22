@@ -1,3 +1,5 @@
+// General modal component
+
 import React from "react";
 
 interface ModalProps {

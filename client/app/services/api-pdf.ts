@@ -4,6 +4,7 @@ const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
+// Generate an invoice PDF API
 export async function generateInvoicePdf(
   invoiceId: string,
   token: string

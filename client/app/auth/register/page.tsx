@@ -1,3 +1,4 @@
+// Register page
 "use client";
 
 import { useState, FormEvent } from "react";
@@ -18,8 +19,8 @@ const Register: React.FC = () => {
     e.preventDefault();
     try {
       const data = await register(name, email, password);
+      // Save the access token to local storage after registration
       localStorage.setItem("accessToken", data.result.token);
-      // localStorage.setItem('refreshToken', data.refreshToken);
       router.push("/invoices");
     } catch (error) {
       console.error("Registration failed:", error);
@@ -35,6 +36,7 @@ const Register: React.FC = () => {
         >
           Please sign up to continue.<br></br>
         </p>
+        {/* Registration form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="text"

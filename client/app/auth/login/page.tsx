@@ -1,3 +1,5 @@
+// Login page
+
 "use client";
 
 import { useState, FormEvent } from "react";
@@ -20,6 +22,7 @@ const Login: React.FC = () => {
     try {
       setLoading(true);
       const data = await login(email, password);
+      // Save access token to local storage
       localStorage.setItem("accessToken", data.result.token);
       router.push("/invoices");
     } catch (error) {
@@ -38,6 +41,7 @@ const Login: React.FC = () => {
         >
           Please log in to continue.<br></br>
         </p>
+        {/* Login form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="email"
@@ -59,6 +63,7 @@ const Login: React.FC = () => {
             type="submit"
             className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
           >
+            {/* Conditional for loading login */}
             {loading ? (
               <>
                 <span>Logging in...</span> <LoadingSpinner />

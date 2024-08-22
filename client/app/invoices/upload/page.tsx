@@ -1,3 +1,5 @@
+// Invoices upload page
+
 "use client";
 
 import { useState } from "react";
@@ -41,8 +43,8 @@ export default function UploadPage() {
         return;
       }
       setLoading(true);
-      const response = await createInvoice(file, accessToken);
-      router.push(`/invoices/${response.id}`);
+      const response = await createInvoice(file, accessToken); // Upload the file
+      router.push(`/invoices/${response.id}`); // Redirect to the new invoice details page
       handleInfo();
     } catch (error) {
       if (error instanceof Error) {
@@ -63,6 +65,7 @@ export default function UploadPage() {
 
       <div className="flex flex-col items-center justify-center mt-10">
         <div className="w-full max-w-lg">
+          {/* Upload form */}
           <form
             onSubmit={handleSubmit}
             className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"

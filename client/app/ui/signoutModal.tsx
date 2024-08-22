@@ -1,3 +1,5 @@
+// Modal for confirming signout
+
 import { ReactNode } from "react";
 
 interface ModalProps {

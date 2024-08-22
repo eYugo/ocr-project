@@ -1,3 +1,5 @@
+// Buttons components
+
 "use client";
 
 import { useState } from "react";
@@ -123,8 +125,8 @@ export function DownloadInvoiceButton({
 }) {
   const handleDownload = async () => {
     try {
-      const pdfBlob = await generateInvoicePdf(id, accessToken);
-      const url = window.URL.createObjectURL(new Blob([pdfBlob]));
+      const pdfBlob = await generateInvoicePdf(id, accessToken); // Generate the PDF
+      const url = window.URL.createObjectURL(new Blob([pdfBlob])); // Create a URL for the PDF
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", `invoice-${id}.pdf`); // Specify the file name

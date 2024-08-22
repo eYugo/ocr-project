@@ -1,3 +1,5 @@
+// Modal for zoomin the image
+
 import React from "react";
 import { Modal, ModalContent } from "@nextui-org/react";
 

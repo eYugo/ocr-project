@@ -122,6 +122,7 @@ export default function InvoiceDetails({}: {}) {
           <div className="flex gap-2">
             {isEditing ? (
               <>
+                {/* Buttons when editing */}
                 <Button
                   onClick={handleSave}
                   className="bg-blue-500 text-white text-sm px-3.5 rounded-md hover:bg-blue-600"
@@ -136,14 +137,18 @@ export default function InvoiceDetails({}: {}) {
                 </Button>
               </>
             ) : isQuerying ? (
-              <Button
-                onClick={handleGoBack}
-                className="bg-gray-500 text-white text-sm px-2 rounded-md hover:bg-gray-600"
-              >
-                Go back
-              </Button>
+              <>
+                {/* Buttons when querying */}
+                <Button
+                  onClick={handleGoBack}
+                  className="bg-gray-500 text-white text-sm px-2 rounded-md hover:bg-gray-600"
+                >
+                  Go back
+                </Button>
+              </>
             ) : (
               <>
+                {/* Buttons to download, query, edit and delete an invoice  */}
                 <DownloadInvoiceButton
                   id={invoice?.id}
                   accessToken={accessToken}
@@ -169,21 +174,26 @@ export default function InvoiceDetails({}: {}) {
       </div>
       {invoice?.imageUrl &&
         (isPdf ? (
-          <div className="fixed right-40 top-1/2 transform -translate-y-1/2 flex items-center justify-center">
-            <button
-              onClick={handleOpenInNewTab}
-              className="flex h-10 items-center rounded-lg bg-blue-500 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-            >
-              <span className="hidden md:block">Open Invoice PDF</span>
-            </button>
-          </div>
+          <>
+            {/* Button to open a PDF in a new tab when Img is PDF */}
+            <div className="fixed right-40 top-1/2 transform -translate-y-1/2 flex items-center justify-center">
+              <button
+                onClick={handleOpenInNewTab}
+                className="flex h-10 items-center rounded-lg bg-blue-500 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              >
+                <span className="hidden md:block">Open Invoice PDF</span>
+              </button>
+            </div>
+          </>
         ) : (
-          <InvoiceImageModal
-            imageUrl={invoice.imageUrl}
-            isOpen={isOpen}
-            onOpen={onOpen}
-            onOpenChange={onOpenChange}
-          />
+          <>
+            <InvoiceImageModal
+              imageUrl={invoice.imageUrl}
+              isOpen={isOpen}
+              onOpen={onOpen}
+              onOpenChange={onOpenChange}
+            />
+          </>
         ))}
     </div>
   );

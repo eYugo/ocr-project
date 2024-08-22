@@ -1,3 +1,5 @@
+// Delete an invoice modal
+
 import React from "react";
 import { Modal, useDisclosure } from "@nextui-org/react";
 import LoadingSpinner from "@/app/ui/loadingSpinner";
